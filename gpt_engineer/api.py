@@ -81,7 +81,7 @@ async def step_handler(step: Step) -> Step:
     - step (Step): Returns the processed step, potentially with modifications.
     """
 
-    if not step.name == "Dummy step":
+    if step.name != "Dummy step":
         try:
             main(
                 os.path.join(step.additional_properties["root_dir"], step.task_id),
@@ -98,7 +98,7 @@ async def step_handler(step: Step) -> Step:
     if step.is_last:
         await Agent.db.create_step(
             step.task_id,
-            name=f"Dummy step",
+            name="Dummy step",
             input=f"Creating dummy step to not run out of steps after {step.name}",
             is_last=True,
             additional_properties={},
